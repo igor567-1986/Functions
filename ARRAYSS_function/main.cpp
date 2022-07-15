@@ -2,6 +2,7 @@
 using namespace std;
 
 #define tab "\t"
+#define razdel "---------------------------------"
 
 void FillRand(int arr[], const int n);
 void Print(int arr[], const int n);
@@ -10,6 +11,10 @@ int Sum(int arr[], const int n, int sum);
 double Avg(int arr[], double sum, const int n,double avg);
 int minValueIn(int arr[], const int n, int min);
 int maxValueIn(int arr[], const int n, int max);
+void shiftLeft(int arr[], const int n, int shift, int buffer);
+void shiftRight(int arr[], const int n, int shift, int buffer);
+
+
 
 
 void main()
@@ -23,14 +28,29 @@ void main()
 	Print(arr, n);
 	Sort(arr, n);
 	Print(arr, n);
-	int sum=0 ,min, max;
+	int sum=0 ,min, max,shift,buffer=0;
 	min = max = arr[0];
 	double avg = 0;
 	cout << "Сумма элементов массива:" << Sum(arr,n,sum) << endl;
+	cout << razdel << endl;;
 	cout << "Среднее арифметическое эллементов массива:" << Avg(arr,sum, n, avg) << endl;
+	cout << razdel << endl;;
+	Print(arr, n);
 	cout << "Минимальное значение в массиве:" << minValueIn (arr,n,min) << endl;
+	Print(arr, n);
+	cout << razdel<<endl;
 	cout << "Максимальное значение в массиве:" << maxValueIn(arr, n, max) << endl;
-
+	Print(arr, n);
+	cout << razdel<<endl;
+	cout << "Введите количество сдвигов :"; cin >> shift;
+	Print(arr, n);
+	shiftLeft(arr, n, shift, buffer);
+	Print(arr, n);
+	cout << razdel << endl;
+	cout << "Введите количество сдвигов :"; cin >> shift;
+	Print(arr, n);
+	shiftRight(arr, n, shift, buffer);
+	Print(arr, n);
 }
 
 void FillRand(int arr[], const int n)
@@ -38,7 +58,7 @@ void FillRand(int arr[], const int n)
 	
 	for (int i = 0; i < n; i++)
 	{
-		arr[i] = rand() % 100;
+		arr[i] = rand() % 10;
     }
 }
 void Print(int arr[], const int n)
@@ -64,16 +84,18 @@ void Sort(int arr[], const int n)
 		}
 	}
 }
-int Sum(int arr[], const int n, int sum)
+int Sum(int arr[], const int n)
 {
+	int sum;
 	for (int i = 0; i < n; i++)
 	{
 		sum += arr[i];
 	}
 	return sum;
 }
-double Avg(int arr[],double sum, const int n,double avg)
+double Avg(int arr[],double sum, const int n)
 {
+	double avg;
 	for (int i = 0; i < n; i++)
 	{
 		sum += arr[i];
@@ -81,10 +103,10 @@ double Avg(int arr[],double sum, const int n,double avg)
 	avg = sum / n;
 	return  avg;
 }
-int minValueIn(int arr[], const int n, int min)
+int minValueIn(int arr[], const int n)
 {
-	FillRand(arr, n);
-	min = arr[0];
+	
+	int min = arr[0];
 	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] < min) 
@@ -94,10 +116,9 @@ int minValueIn(int arr[], const int n, int min)
 	}
 	return min;
 }
-int maxValueIn(int arr[], const int n, int max)
+int maxValueIn(int arr[], const int n)
 {
-	FillRand(arr, n);
-	max = arr[0];
+	int	max = arr[0];
 	for (int i = 0; i < n; i++)
 	{
 		if (arr[i] > max)
@@ -106,4 +127,28 @@ int maxValueIn(int arr[], const int n, int max)
 		}
 	}
 	return max;
+}
+void shiftLeft(int arr[], const int n, int shift)
+{
+		for (int i = 0; i < shift; i++)
+	{
+		int buffer = arr[0];
+		for (int i = 0; i < n; i++)
+		{
+			arr[i] = arr[i + 1];
+		}
+		arr[n - 1] = buffer;
+	}
+}
+void shiftRight(int arr[], const int n, int shift)
+{
+		for (int i = 0; i < shift; i++)
+	{
+		int buffer = arr[n-1];
+		for (int i = n - 1; i >= 0; i--)
+		{
+			arr[i] = arr[i - 1];
+		}
+		arr[0] = buffer;
+	}
 }
