@@ -7,8 +7,11 @@ using namespace std;
 #define razdel "---------------------------------"
 //#define OneDimensionalArrays
 
+
 const int ROWS = 3;
 const int COLS = 4;
+int sum = 0, buffer=0, shift;
+
 void FillRand(int arr[], const int n);
 void FillRand(double arr[], const int n);
 void FillRand(float arr[], const int n);
@@ -58,7 +61,7 @@ void shiftLeft(int arr[], const int n, int shift);
 void shiftLeft(double arr[], const int n, int shift);
 void shiftLeft(float arr[], const int n, int shift);
 void shiftLeft(char arr[], const int n, int shift);
-void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS);
+void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int shift);
 
 
 void shiftRight(int arr[], const int n, int shift);
@@ -81,7 +84,7 @@ void main()
 	Print(arr, n);
 	Sort(arr, n);
 	Print(arr, n);
-	int sum = 0, min = 0, max = 0, shift, buffer = 0;
+	
 	double avg = 0;
 	cout << "Сумма элементов массива:" << Sum(arr, n) << endl;
 	cout << "Среднее арифметическое эллементов массива:" << Avg(arr, n) << endl;
@@ -182,6 +185,9 @@ void main()
 	cout << "Среднее арифметическое эллементов массива:" << Avg(i_arr_2, ROWS, COLS) << endl;
 	cout << "Минимальное значение в массиве:" << minValueIn(i_arr_2, ROWS, COLS) << endl;
 	cout << "Максимальное значение в массиве:" << maxValueIn(i_arr_2, ROWS, COLS) << endl;
+	cout << "Введите на сколько хотите сдвинуть массив влево:"; cin >> shift;
+	shiftLeft(i_arr_2, ROWS, COLS, shift);
+	Print(i_arr_2, ROWS, COLS);
 	cout << razdel << endl;
 
 }
@@ -617,16 +623,20 @@ void shiftLeft(char arr[], const int n, int shift)
 		arr[n - 1] = buffer;
 	}
 }
-void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS)
+void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS,int shift)
 {
-	for (int i = 0; i < ROWS; i++)
+	for (int k = 0; k < shift; k++)
 	{
-		for (int j = 0; j < COLS; j++)
+		for (int i = 0; i < ROWS; i++)
 		{
-			int buffer = arr[0][0];
-			arr[i][j] = arr[i][j + 1];
-			if (j == COLS - 1 && i != ROWS - 1)arr[i][j] = arr[i + 1][(j + 1) - COLS];
-			else arr[ROWS - 1][COLS - 1] = buffer;
+			for (int j = 0; j < COLS; j++)
+			{
+				int buffer;
+				if (i == 0 && j == 0) buffer = arr[0][0];
+				arr[i][j] = arr[i][j + 1];
+				if (j == COLS - 1 && i != ROWS - 1)arr[i][j] = arr[i + 1][(j + 1) - COLS];
+				else if (i == ROWS - 1 && j == COLS - 1)arr[ROWS - 1][COLS - 1] = buffer;
+			}
 		}
 	}
 }
