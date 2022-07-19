@@ -10,7 +10,7 @@ using namespace std;
 
 const int ROWS = 3;
 const int COLS = 4;
-int sum = 0, buffer=0, shift;
+int sum = 0, buffer = 0, shift;
 
 void FillRand(int arr[], const int n);
 void FillRand(double arr[], const int n);
@@ -36,10 +36,10 @@ float Sum(float arr[], const int n);
 char Sum(char arr[], const int n);
 int Sum(int arr[ROWS][COLS], const int ROWS, const int COLS);
 
-double Avg(int arr[],  const int n);
-double Avg(double arr[],  const int n);
-float Avg(float arr[],  const int n);
-char Avg(char arr[],  const int n);
+double Avg(int arr[], const int n);
+double Avg(double arr[], const int n);
+float Avg(float arr[], const int n);
+char Avg(char arr[], const int n);
 double Avg(int arr[ROWS][COLS], const int ROWS, const int COLS);
 
 
@@ -48,7 +48,7 @@ double minValueIn(double arr[], const int n);
 float minValueIn(float arr[], const int n);
 char minValueIn(char arr[], const int n);
 int minValueIn(int arr[ROWS][COLS], const int ROWS, const int COLS);
- 
+
 
 int maxValueIn(int arr[], const int n);
 double maxValueIn(double arr[], const int n);
@@ -84,7 +84,7 @@ void main()
 	Print(arr, n);
 	Sort(arr, n);
 	Print(arr, n);
-	
+
 	double avg = 0;
 	cout << "Сумма элементов массива:" << Sum(arr, n) << endl;
 	cout << "Среднее арифметическое эллементов массива:" << Avg(arr, n) << endl;
@@ -194,18 +194,18 @@ void main()
 
 void FillRand(int arr[], const int n)
 {
-		for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		arr[i] = rand() % 100;
-    }
+	}
 }
 void FillRand(double arr[], const int n)
 {
-		for (int i = 0; i < n; i++)
+	for (int i = 0; i < n; i++)
 	{
 		arr[i] = rand() % 10000;
 		arr[i] /= 100;
-    }
+	}
 }
 void FillRand(float arr[], const int n)
 {
@@ -374,7 +374,7 @@ void Sort(int arr[ROWS][COLS], const int ROWS, const int COLS)
 
 int Sum(int arr[], const int n)
 {
-	int sum=0;
+	int sum = 0;
 	for (int i = 0; i < n; i++)
 	{
 		sum += arr[i];
@@ -383,7 +383,7 @@ int Sum(int arr[], const int n)
 }
 double Sum(double arr[], const int n)
 {
-	double sum=0;
+	double sum = 0;
 	for (int i = 0; i < n; i++)
 	{
 		sum += arr[i];
@@ -412,7 +412,7 @@ int Sum(int arr[ROWS][COLS], const int ROWS, const int COLS)
 {
 	int sum = 0;
 	for (int i = 0; i < ROWS; i++)
-	{ 
+	{
 		for (int j = 0; j < COLS; j++)
 		{
 			sum += arr[i][j];
@@ -424,11 +424,11 @@ int Sum(int arr[ROWS][COLS], const int ROWS, const int COLS)
 
 double Avg(int arr[], const int n)
 {
-	return (double) Sum(arr,n)/n;
+	return (double)Sum(arr, n) / n;
 }
 double Avg(double arr[], const int n)
 {
-	return (double) Sum(arr,n)/n;
+	return (double)Sum(arr, n) / n;
 }
 float Avg(float arr[], const int n)
 {
@@ -440,16 +440,16 @@ char Avg(char arr[], const int n)
 }
 double Avg(int arr[ROWS][COLS], const int ROWS, const int COLS)
 {
-	return (double)Sum(arr,ROWS,COLS) / (ROWS*COLS);
+	return (double)Sum(arr, ROWS, COLS) / (ROWS * COLS);
 }
 
 
 int minValueIn(int arr[], const int n)
-{	
+{
 	int min = arr[0];
 	for (int i = 0; i < n; i++)
 	{
-		if (arr[i] < min) 
+		if (arr[i] < min)
 		{
 			min = arr[i];
 		}
@@ -565,7 +565,7 @@ int maxValueIn(int arr[ROWS][COLS], const int ROWS, const int COLS)
 	{
 		for (int j = 0; j < COLS; j++)
 		{
-			if (arr[i][j] >max )
+			if (arr[i][j] > max)
 			{
 				max = arr[i][j];
 			}
@@ -623,21 +623,22 @@ void shiftLeft(char arr[], const int n, int shift)
 		arr[n - 1] = buffer;
 	}
 }
-void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS,int shift)
+void shiftLeft(int arr[ROWS][COLS], const int ROWS, const int COLS, int shift)
 {
 	for (int k = 0; k < shift; k++)
 	{
+		int buffer = arr[0][0];
 		for (int i = 0; i < ROWS; i++)
 		{
 			for (int j = 0; j < COLS; j++)
 			{
-				int buffer;
-				if (i == 0 && j == 0) buffer = arr[0][0];
+				//if (i == 0 && j == 0) buffer = arr[0][0];
 				arr[i][j] = arr[i][j + 1];
-				if (j == COLS - 1 && i != ROWS - 1)arr[i][j] = arr[i + 1][(j + 1) - COLS];
-				else if (i == ROWS - 1 && j == COLS - 1)arr[ROWS - 1][COLS - 1] = buffer;
+				//if (j == COLS - 1 && i != ROWS - 1)arr[i][j] = arr[i + 1][(j + 1) - COLS];
+				//else if (i == ROWS - 1 && j == COLS - 1)arr[ROWS - 1][COLS - 1] = buffer;
 			}
 		}
+		arr[ROWS - 1][COLS - 1] = buffer;
 	}
 }
 
@@ -646,7 +647,7 @@ void shiftRight(int arr[], const int n, int shift)
 {
 	for (int i = 0; i < shift; i++)
 	{
-		int buffer = arr[n-1];
+		int buffer = arr[n - 1];
 		for (int i = n - 1; i >= 0; i--)
 		{
 			arr[i] = arr[i - 1];
